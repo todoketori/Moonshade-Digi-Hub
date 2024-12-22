@@ -1,0 +1,4 @@
+### 5. Games
+Moonshade has several titles that are currently in development "Lumin, Tales of Ithonia, Project: VS, & others TBA" and will explore crowdfunding to gauge if that alone would be viable for a project of this scale. While all of Moonshade Digital's resources are devoted to the launch of our new IPs, key staff will occasionally rotate into new positions, which could lead to delays. As such, should this hinder development in any meaningful way, Moonshade Digital will consider partnering with a game developer/development studio to expedite the completion of project timelines. As of Q4 2024 "Lumin" is set to be our flagship offering and will receive updates for our crowdfunding campaign early Q1 2025.
+
+Our aim is for a closed alpha to be announced in Q3 2025, with a Beta testing phase shortly after late Q4 of 2025.
