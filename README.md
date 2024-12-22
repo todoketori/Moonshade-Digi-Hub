@@ -12,7 +12,7 @@ Each 'DIGIGAR' or 'Digital Garden' will receive several years of development. "A
 __
 ### Table of Contents:
 
-[1. Moonshade Digital Garden overview] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/01.%20Moonshade%20Digital%20Garden%20overview/Description.md)
+[1. Moonshade Digital Garden overview](https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/01.%20Moonshade%20Digital%20Garden%20overview/Description.md)
 
 [2. DIGIGAR policy](https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/02.%20DIGIGAR/Digital%20Garden%20Policy.md)
 
