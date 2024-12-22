@@ -28,7 +28,7 @@ __
 
 [8. Moonshade Digital] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/08.%20Moonshade%20Digital/Moonshade%20Digi)
 
-[9. Moonshade Media] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/09.%20Parent%20Company%20Brief/Moonshade%20Media)
+[9. Moonshade Media]([url](https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/09.%20Parent%20Company%20Brief/Moonshade%20Media)) 
 
 
 ____
