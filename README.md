@@ -12,23 +12,23 @@ Each 'DIGIGAR' or 'Digital Garden' will receive several years of development. "A
 __
 ### Table of Contents:
 
-1. Moonshade Digital Garden overview 
+[1. Moonshade Digital Garden overview] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/01.%20Moonshade%20Digital%20Garden%20overview/Description.md)
 
-2. DIGIGAR policy 
+[2. DIGIGAR policy] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/02.%20DIGIGAR/Digital%20Garden%20Policy.md)
 
-3. Project roadmap
+[3. Project roadmap] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/03.%20Project%20Roadmap/Roadmap.md)
 
-4. Project Virakai
+[4. Project Virakai] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/04.%20Project%3A%20Virakai/Virakai.md)
 
-5. Video games
+[5. Video games] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/05.%20Games/Lumin%2C%20Ithonia%2C%20%26%20More.md)
 
-6. Volunteers
+[6. Volunteers] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/06.%20Volunteer%20Policy/Volunteers%20%26%20Temp%20Staff%20Roles)
 
-7. IP offerings
+[7. IP offerings] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/07.%20IP%20Launches/Moonshade%3A%20IPs%20%26%20Launches)
 
-8. Moonshade Digital
+[8. Moonshade Digital] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/08.%20Moonshade%20Digital/Moonshade%20Digi)
 
-9. Moonshade Media
+[9. Moonshade Media] (https://github.com/Moonshade-Digital/Moonshade-Digi-Hub/blob/main/09.%20Parent%20Company%20Brief/Moonshade%20Media)
 
 
 ____
