@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Novel Creator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .scene {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+        .character {
+            font-weight: bold;
+        }
+        .timeline {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .timeline-card {
+            display: inline-block;
+            width: 200px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Visual Novel Creator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" id="new-project-button">New Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="open-project-button">Open Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="save-project-button">Save Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="open-file-button">Open File</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="timeline-button">Timeline</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Project Management</h2>
+                <ul id="project-list" class="list-group">
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <h2 id="page-title">Scene Editor</h2>
+                <div id="scene-editor">
+                    <form>
+                        <div class="mb-3">
+                            <label for="scene-name" class="form-label">Scene Name:</label>
+                            <input type="text" class="form-control" id="scene-name" placeholder="Scene Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="background-image" class="form-label">Background Image:</label>
+                            <input type="text" class="form-control" id="background-image" placeholder="Background Image URL">
+                        </div>
+                        <div class="mb-3">
+                            <label for="music" class="form-label">Music:</label>
+                            <input type="text" class="form-control" id="music" placeholder="Music URL">
+                        </div>
+                        <div class="mb-3">
+                            <label for="sound-effects" class="form-label">Sound Effects:</label>
+                            <input type="text" class="form-control" id="sound-effects" placeholder="Sound Effects URL">
+                        </div>
+                        <div class="mb-3">
+                            <label for="character-name" class="form-label">Character Name:</label>
+                            <input type="text" class="form-control" id="character-name" placeholder="Character Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dialogue" class="form-label">Dialogue:</label>
+                            <textarea class="form-control" id="dialogue" placeholder="Dialogue"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="save-scene-button">Save Scene</button>
+                    </form>
+                </div>
+                <div id="scene-preview">
+                    <h2>Scene Preview</h2>
+                    <div class="scene">
+                        <span id="scene-name-preview"></span>
+                        <img id="background-image-preview" src="" alt="Background Image">
+                        <audio id="music-preview" controls>
+                            <source src="" type="audio/mp3">
+                        </audio>
+                        <audio id="sound-effects-preview" controls>
+                            <source src="" type="audio/mp3">
+                        </audio>
+                        <span id="character-name-preview" class="character"></span>
+                        <span id="dialogue-preview"></span>
+                    </div>
+                </div>
+                <div id="timeline-page" style="display: none;">
+                    <h2>Timeline</h2>
+                    <div class="timeline">
+                        <div id="timeline-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="new-project-modal" tabindex="-1" aria-labelledby="new-project-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="new-project-modal-label">New Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="project-name" class="form-label">Project Name:</label>
+                            <input type="text" class="form-control" id="project-name" placeholder="Project Name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="create-project-button">Create Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let projects = [];
+        let currentProject = null;
+        let currentScene = null;
+        let sceneIndex = 0;
+        const databaseFolder = 'visual-novel-creator';
+
+        document.getElementById('new-project-button').addEventListener('click', () => {
+            const modal = new bootstrap.Modal(document.getElementById('new-project-modal'));
+            modal.show();
+        });
+
+        document.getElementById('create-project-button').addEventListener('click', () => {
+            const projectName = document.getElementById('project-name').value;
+            const project = {
+                name: projectName,
+                scenes: []
+            };
+            projects.push(project);
+            currentProject = project;
+            renderProjectList();
+            renderSceneEditor();
+            renderTimeline();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('new-project-modal'));
+            modal.hide();
+        });
+
+        document.getElementById('open-project-button').addEventListener('click', () => {
+            // implement open project functionality
+        });
+
+        document.getElementById('save-project-button').addEventListener('click', () => {
+            const projectName = currentProject.name;
+            const projectData = JSON.stringify(currentProject);
+            const fileHandle = saveFile(projectName + '.json', projectData, databaseFolder).then(fileHandle => console.log('Project saved to:', fileHandle));
+        });
+
+        document.getElementById('open-file-button').addEventListener('click', async () => {
+            const fileHandle = await openFile('.json', databaseFolder);
+            if (fileHandle) {
+                const file = await fileHandle.getFile();
+                const contents = await file.text();
+                const project = JSON.parse(contents);
+                currentProject = project;
+                renderProjectList();
+                renderSceneEditor();
+                renderTimeline();
+            }
+        });
+
+        document.getElementById('save-scene-button').addEventListener('click', () => {
+            const sceneName = document.getElementById('scene-name').value;
+            const backgroundImage = document.getElementById('background-image').value;
+            const music = document.getElementById('music').value;
+            const soundEffects = document.getElementById('sound-effects').value;
+            const characterName = document.getElementById('character-name').value;
+            const dialogue = document.getElementById('dialogue').value;
+            const scene = {
+                name: sceneName,
+                backgroundImage: backgroundImage,
+                music: music,
+                soundEffects: soundEffects,
+                characterName: characterName,
+                dialogue: dialogue
+            };
+            currentProject.scenes.push(scene);
+            renderScenePreview(scene);
+            renderTimeline();
+        });
+
+        document.getElementById('prev-scene-button').addEventListener('click', () => {
+            if (sceneIndex > 0) {
+                sceneIndex--;
+                renderScenePreview(currentProject.scenes[sceneIndex]);
+            }
+        });
+
+        document.getElementById('next-scene-button').addEventListener('click', () => {
+            if (sceneIndex < currentProject.scenes.length - 1) {
+                sceneIndex++;
+                renderScenePreview(currentProject.scenes[sceneIndex]);
+            }
+        });
+
+        document.getElementById('timeline-button').addEventListener('click', () => {
+            document.getElementById('page-title').innerText = 'Timeline';
+            document.getElementById('scene-editor').style.display = 'none';
+            document.getElementById('scene-preview').style.display = 'none';
+            document.getElementById('timeline-page').style.display = 'block';
+            renderTimeline();
+        });
+
+        function renderProjectList() {
+            const projectList = document.getElementById('project-list');
+            projectList.innerHTML = '';
+            projects.forEach((project, index) => {
+                const projectListItem = document.createElement('li');
+                projectListItem.textContent = project.name;
+                projectListItem.addEventListener('click', () => {
+                    currentProject = project;
+                    renderSceneEditor();
+                    renderTimeline();
+                });
+                projectList.appendChild(projectListItem);
+            });
+        }
+
+        function renderSceneEditor() {
+            const sceneEditor = document.getElementById('scene-editor');
+            sceneEditor.innerHTML = '<form>' +
+                '<div class="mb-3">' +
+                '<label for="scene-name" class="form-label">Scene Name:</label>' +
+                '<input type="text" class="form-control" id="scene-name" placeholder="Scene Name">' +
+                '</div>' +
+                '<div class="mb-3">' +
+                '<label for="background-image" class="form-label">Background Image:</label>' +
+                '<input type="text" class="form-control" id="background-image" placeholder="Background Image URL">' +
+                '</div>' +
+                '<div class="mb-3">' +
+                '<label for="music" class="form-label">Music:</label>' +
+                '<input type="text" class="form-control" id="music" placeholder="Music URL">' +
+                '</div>' +
+                '<div class="mb-3">' +
+                '<label for="sound-effects" class="form-label">Sound Effects:</label>' +
+                '<input type="text" class="form-control" id="sound-effects" placeholder="Sound Effects URL">' +
+                '</div>' +
+                '<div class="mb-3">' +
+                '<label for="character-name" class="form-label">Character Name:</label>' +
+                '<input type="text" class="form-control" id="character-name" placeholder="Character Name">' +
+                '</div>' +
+                '<div class="mb-3">' +
+                '<label for="dialogue" class="form-label">Dialogue:</label>' +
+                '<textarea class="form-control" id="dialogue" placeholder="Dialogue"></textarea>' +
+                '</div>' +
+                '<button type="button" class="btn btn-primary" id="save-scene-button">Save Scene</button>' +
+                '</form>';
+        }
+
+        function renderScenePreview(scene) {
+            const scenePreview = document.getElementById('scene-preview');
+            scenePreview.innerHTML = '<h2>Scene Preview</h2>' +
+                '<div class="scene">' +
+                '<span id="scene-name-preview">' + scene.name + '</span>' +
+                '<img id="background-image-preview" src="' + scene.backgroundImage + '" alt="Background Image">' +
+                '<audio id="music-preview" controls>' +
+                '<source src="' + scene.music + '" type="audio/mp3">' +
+                '</audio>' +
+                '<audio id="sound-effects-preview" controls>' +
+                '<source src="' + scene.soundEffects + '" type="audio/mp3">' +
+                '</audio>' +
+                '<span id="character-name-preview" class="character">' + scene.characterName + '</span>' +
+                '<span id="dialogue-preview">' + scene.dialogue + '</span>' +
+                '</div>';
+        }
+
+        function renderTimeline() {
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineContainer.innerHTML = '';
+            currentProject.scenes.forEach((scene, index) => {
+                const timelineImage = document.createElement('img');
+                timelineImage.className = 'timeline-image';
+                timelineImage.src = scene.backgroundImage;
+                timelineImage.addEventListener('click', () => {
+                    renderSceneEditor();
+                    const sceneEditor = document.getElementById('scene-editor');
+                    sceneEditor.style.display = 'block';
+                    sceneEditor.querySelector('#scene-name').value = scene.name;
+                    sceneEditor.querySelector('#background-image').value = scene.backgroundImage;
+                    sceneEditor.querySelector('#music').value = scene.music;
+                    sceneEditor.querySelector('#sound-effects').value = scene.soundEffects;
+                    sceneEditor.querySelector('#character-name').value = scene.characterName;
+                    sceneEditor.querySelector('#dialogue').value = scene.dialogue;
+                    document.getElementById('page-title').innerText = 'Scene Editor';
+                    document.getElementById('scene-preview').style.display = 'block';
+                    document.getElementById('timeline-page').style.display = 'none';
+                    renderScenePreview(scene);
+                });
+                timelineContainer.appendChild(timelineImage);
+            });
+        }
+
+        async function saveFile(name, contents, folder) {
+            if (!name) {
+                throw new Error('File name is required');
+            }
+            if (!contents) {
+                throw new Error('File contents are required');
+            }
+            if (typeof folder !== 'string') {
+                throw new Error('Folder must be a string');
+            }
+
+            const options = {
+                types: [
+                    {
+                        description: 'JSON file',
+                        accept: {
+                            'text/json': ['.json']
+                        }
+                    }
+                ]
+            };
+
+            const fileHandle = await window.showSaveFilePicker({
+                suggestedName: name,
+                types: options.types
+            });
+            const writable = await fileHandle.createWritable();
+            await writable.write(contents);
+            await writable.close();
+
+            return fileHandle;
+        }
+
+        async function openFile(extension, folder) {
+            const options = {
+                types: [
+                    {
+                        description: 'JSON file',
+                        accept: {
+                            'text/json': [extension]
+                        }
+                    }
+                ]
+            };
+
+            const fileHandle = await window.showOpenFilePicker({
+                types: options.types
+            });
+
+            return fileHandle[0];
+        }
+    </script>
+</body>
+</html>
