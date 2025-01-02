@@ -14,7 +14,7 @@ __
 
 [1. Moonshade Digital Garden overview](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/01.%20Moonshade%20Digital%20Garden%20overview)
 
-[2. DIGIGAR policy](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/02.%20DIGIGAR/Digital%20Garden%20Policy.md)
+[2. "DIGIGAR" Digital Garden & policy](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/02.%20DIGIGAR/Digital%20Garden%20Policy.md)
 
 [3. Project roadmap](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/03.%20Project%20Roadmap/Roadmap.md)
 
