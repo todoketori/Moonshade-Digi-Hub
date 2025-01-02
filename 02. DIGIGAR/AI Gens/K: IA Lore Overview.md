@@ -205,16 +205,15 @@ ___
   _**Cyberiology**_
   _____
   Augmentation Cy-Biology: 
-  Augments are incorporated into the body by mimicking the function of the body part the augment is set to take the place of. This is 
-  achieved through vibration of the augment and release of biological molecules that are modified with “SynthGen” technology. Through the 
-  use of a process known as “protein shifting” the augment is able to integrate into the cellular structures of the body without raising 
-  alarm or causing infection. Thus avoiding an undesirable or adverse reaction from the body’s immune system through synthesis. This is 
-  achieved through a complex and delicate technique in which Eosinophil, Natural Killer, Mast, & Basophil (white blood) cells are nullified 
-  by the augment. 
+        Augments are incorporated into the body by mimicking the function of the body part the augment is set to take the place of. 
+        This is achieved through vibration of the augment and release of biological molecules that are modified with “SynthGen” technology.         Through the 
+        use of a process known as “protein shifting” the augment is able to integrate into the cellular structures of the body without              raising alarm or causing infection. Thus avoiding an undesirable or adverse reaction from the body’s immune system through                  synthesis. 
+        This is achieved through a complex and delicate technique in which Eosinophil, Natural Killer, Mast, & Basophil (white blood) 
+        cells are nullified by the augment. 
   
-  Upon nullification these cells are then rapidly replicated, modified, and then sent out; returning to body. This process leverages the 
-  chemicals released primarily by manipulating the Natural Killer & Eosinophil cell’s chemical release structure. The key components that 
-  tie this process together are the Micro & Macro “Ferinial” cells. 
+>  Upon nullification these cells are then rapidly replicated, modified, and then sent out; returning to body. This process leverages the 
+>  chemicals released primarily by manipulating the Natural Killer & Eosinophil cell’s chemical release structure. The key components that 
+>  tie this process together are the Micro & Macro “Ferinial” cells. 
  
  
  
