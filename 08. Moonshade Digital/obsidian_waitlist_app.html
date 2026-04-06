@@ -1,0 +1,725 @@
+<html><head><style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #0a0a0b;
+    --surface: #111113;
+    --surface2: #18181c;
+    --surface3: #222228;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --accent: #c8b8ff;
+    --accent2: #9b87ff;
+    --muted: rgba(255,255,255,0.38);
+    --text: rgba(255,255,255,0.9);
+    --text2: rgba(255,255,255,0.6);
+    --success: #5fcf8a;
+    --gold: #e8c87a;
+  }
+
+  .root {
+    background: var(--obsidian);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 600px;
+  }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab {
+    background: none; border: none; color: var(--muted);
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 7px 16px; border-radius: 6px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-tab:hover { color: var(--text); background: var(--surface2); }
+  .nav-tab.active { color: var(--accent); background: rgba(155,135,255,0.1); }
+
+  .view { display: none; animation: fadeIn 0.2s ease; }
+  .view.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SIGNUP VIEW */
+  .signup-hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+  .signup-left {
+    padding: 56px 48px;
+    border-right: 0.5px solid var(--border);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before {
+    content: ''; display: inline-block;
+    width: 24px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px; line-height: 1.05;
+    color: var(--text); margin-bottom: 20px;
+  }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 15px; color: var(--text2); line-height: 1.7;
+    max-width: 380px; margin-bottom: 36px;
+  }
+  .stats-row { display: flex; gap: 32px; }
+  .stat-item { }
+  .stat-n {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px; font-weight: 500; color: var(--gold);
+  }
+  .stat-l { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-top: 2px; }
+
+  .signup-right {
+    padding: 56px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .form-title { font-size: 15px; font-weight: 600; color: var(--text2); margin-bottom: 28px; letter-spacing: 0.04em; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .field input, .field select {
+    width: 100%; background: var(--surface2);
+    border: 0.5px solid var(--border2);
+    border-radius: 8px; padding: 12px 16px;
+    font-family: 'Syne', sans-serif; font-size: 14px; color: var(--text);
+    outline: none; transition: border 0.15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--accent2); }
+  .field select { cursor: pointer; }
+  .field select option { background: #222; }
+
+  .referral-field {
+    display: flex; gap: 8px;
+  }
+  .referral-field input { flex: 1; }
+  .ref-badge {
+    background: rgba(200,184,255,0.12); border: 0.5px solid var(--accent2);
+    border-radius: 8px; padding: 12px 14px;
+    font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em;
+    white-space: nowrap; cursor: pointer;
+  }
+
+  .cal-row { display: flex; gap: 8px; margin-bottom: 20px; }
+  .cal-btn {
+    flex: 1; background: var(--surface2); border: 0.5px solid var(--border2);
+    border-radius: 8px; padding: 10px 12px;
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.06em; color: var(--text2); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all 0.15s;
+  }
+  .cal-btn:hover { border-color: var(--accent2); color: var(--accent); background: rgba(155,135,255,0.08); }
+  .cal-btn.selected { border-color: var(--accent); color: var(--accent); background: rgba(155,135,255,0.12); }
+  .cal-icon { width: 14px; height: 14px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .gcal-icon { background: #4285f4; color: white; }
+  .apple-icon { background: #555; color: white; }
+
+  .submit-btn {
+    width: 100%; background: var(--accent2);
+    border: none; border-radius: 8px; padding: 14px;
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.06em; color: #fff; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .submit-btn:hover { background: var(--accent); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .privacy-note { font-size: 11px; color: var(--muted); margin-top: 12px; text-align: center; line-height: 1.5; }
+
+  /* CONFIRMATION VIEW */
+  .confirm-view { padding: 64px 48px; max-width: 680px; margin: 0 auto; }
+  .confirm-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(95,207,138,0.1); border: 0.5px solid rgba(95,207,138,0.3);
+    border-radius: 100px; padding: 8px 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--success); margin-bottom: 32px;
+  }
+  .confirm-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+  .confirm-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px; line-height: 1.1; margin-bottom: 16px;
+  }
+  .confirm-title em { font-style: italic; color: var(--accent); }
+  .confirm-sub { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 40px; }
+
+  .info-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+  .info-card {
+    background: var(--surface2); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 16px;
+  }
+  .info-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .info-card-val { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text); }
+  .info-card-val.gold { color: var(--gold); }
+  .info-card-val.accent { color: var(--accent); }
+  .info-card-val.success { color: var(--success); }
+
+  .refer-block {
+    background: var(--surface2); border: 0.5px solid var(--border2);
+    border-radius: 12px; padding: 24px;
+    margin-bottom: 32px;
+  }
+  .refer-block-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .refer-block-sub { font-size: 12px; color: var(--text2); margin-bottom: 16px; }
+  .refer-link-row { display: flex; gap: 8px; }
+  .refer-link {
+    flex: 1; background: var(--surface3); border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent);
+  }
+  .copy-btn {
+    background: rgba(155,135,255,0.15); border: 0.5px solid var(--accent2);
+    border-radius: 8px; padding: 10px 18px;
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--accent); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .copy-btn:hover { background: rgba(155,135,255,0.25); }
+
+  .cal-add-row { display: flex; gap: 10px; }
+  .cal-add-btn {
+    flex: 1; padding: 12px; border-radius: 8px; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.04em; transition: all 0.15s;
+    border: 0.5px solid var(--border2); background: var(--surface2); color: var(--text2);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .cal-add-btn:hover { border-color: var(--accent2); color: var(--accent); background: rgba(155,135,255,0.08); }
+  .gcal-full { background: #1a1a2e; border-color: #4285f4; color: #7fb3ff; }
+  .gcal-full:hover { background: #1a1a3e; }
+  .apple-full { background: #1a1a1a; border-color: #888; color: #bbb; }
+  .apple-full:hover { background: #222; }
+
+  /* EMAIL PREVIEW */
+  .email-view { padding: 32px; }
+  .email-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .email-title { font-size: 14px; font-weight: 700; color: var(--text2); letter-spacing: 0.06em; text-transform: uppercase; }
+  .ai-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(200,184,255,0.1); border: 0.5px solid rgba(200,184,255,0.25);
+    border-radius: 100px; padding: 5px 12px;
+    font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em;
+  }
+  .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .email-shell {
+    background: #0f0f14; border: 0.5px solid var(--border2);
+    border-radius: 12px; overflow: hidden; max-width: 600px; margin: 0 auto;
+  }
+  .email-header {
+    background: linear-gradient(135deg, #1a1025 0%, #0d1020 100%);
+    padding: 40px 40px 32px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .email-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; letter-spacing: 0.15em; color: #fff; margin-bottom: 24px;
+  }
+  .email-logo span { color: var(--accent); }
+  .email-h {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; line-height: 1.2; color: #fff; margin-bottom: 10px;
+  }
+  .email-h em { font-style: italic; color: var(--accent); }
+  .email-sub-line { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .email-body { padding: 32px 40px; }
+  .email-body p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 16px; }
+  .email-body p strong { color: rgba(255,255,255,0.9); }
+  .email-highlight {
+    background: rgba(155,135,255,0.08); border-left: 2px solid var(--accent2);
+    border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0;
+  }
+  .email-highlight p { margin: 0; font-size: 13px; color: rgba(255,255,255,0.6); font-family: 'DM Mono', monospace; }
+  .email-cta {
+    display: block; text-align: center;
+    background: var(--accent2); border-radius: 8px; padding: 14px;
+    font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+    color: #fff; margin: 24px 0; text-decoration: none;
+    letter-spacing: 0.06em;
+  }
+  .email-footer {
+    padding: 20px 40px; border-top: 0.5px solid var(--border);
+    font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.6;
+  }
+  .regen-btn {
+    background: none; border: 0.5px solid var(--border2); border-radius: 8px;
+    padding: 9px 20px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--text2); cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .regen-btn:hover { border-color: var(--accent2); color: var(--accent); }
+
+  /* ADMIN VIEW */
+  .admin-view { padding: 32px; }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .admin-h { font-size: 16px; font-weight: 700; color: var(--text); }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .metric {
+    background: var(--surface2); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 16px;
+  }
+  .metric-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .metric-val { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; }
+  .metric-delta { font-size: 11px; color: var(--success); margin-top: 4px; }
+
+  .filter-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .filter-btn {
+    background: none; border: 0.5px solid var(--border); border-radius: 6px;
+    padding: 6px 14px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.06em; color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .filter-btn.active { border-color: var(--accent2); color: var(--accent); background: rgba(155,135,255,0.08); }
+  .filter-btn:hover { color: var(--text2); border-color: var(--border2); }
+
+  .table-wrap { background: var(--surface2); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { border-bottom: 0.5px solid var(--border); }
+  th { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: left; }
+  td { padding: 13px 16px; font-size: 13px; color: var(--text2); border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .pos-num { font-family: 'DM Mono', monospace; color: var(--accent); font-size: 13px; }
+  .status-pill {
+    display: inline-block; padding: 3px 10px; border-radius: 100px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  }
+  .status-wait { background: rgba(200,184,255,0.1); color: var(--accent); border: 0.5px solid rgba(200,184,255,0.2); }
+  .status-inv { background: rgba(232,200,122,0.1); color: var(--gold); border: 0.5px solid rgba(232,200,122,0.2); }
+  .status-act { background: rgba(95,207,138,0.1); color: var(--success); border: 0.5px solid rgba(95,207,138,0.2); }
+  .ref-count { font-family: 'DM Mono', monospace; font-size: 12px; }
+  .ref-count.hot { color: var(--gold); }
+  .invite-btn {
+    background: none; border: 0.5px solid var(--border2); border-radius: 6px;
+    padding: 5px 12px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--text2); cursor: pointer; transition: all 0.15s;
+  }
+  .invite-btn:hover { border-color: var(--gold); color: var(--gold); }
+</style>
+
+</head><body><div class="root">
+  <nav class="nav">
+    <div class="logo">OBS<span>I</span>DIAN</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('signup')">Join</button>
+      <button class="nav-tab" onclick="switchTab('confirm')">Confirmation</button>
+      <button class="nav-tab" onclick="switchTab('email')">Email Preview</button>
+      <button class="nav-tab" onclick="switchTab('admin')">Admin</button>
+    </div>
+  </nav>
+
+  <!-- SIGNUP VIEW -->
+  <div id="view-signup" class="view active">
+    <div class="signup-hero">
+      <div class="signup-left">
+        <div class="eyebrow">Invite Only — 2026</div>
+        <h1 class="hero-title">Research at the<br><em>speed of thought.</em></h1>
+        <p class="hero-sub">OBSIDIAN is an AI research environment built for serious thinkers. Deep synthesis, private knowledge graphs, and zero distraction.</p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-n">15,847</div>
+            <div class="stat-l">On waitlist</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">3538</div>
+            <div class="stat-l">Invites sent</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">Q4 '26</div>
+            <div class="stat-l">Next wave</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signup-right">
+        <div class="form-title">Request access</div>
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" placeholder="Ada Lovelace" id="inp-name">
+        </div>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" placeholder="ada@research.io" id="inp-email">
+        </div>
+        <div class="field">
+          <label>Use case</label>
+          <select id="inp-usecase">
+            <option value="">Select your field...</option>
+            <option>Academic research</option>
+            <option>Investigative journalism</option>
+            <option>Strategy &amp; consulting</option>
+            <option>Independent scholarship</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Referral code (optional)</label>
+          <div class="referral-field">
+            <input type="text" placeholder="OBS-XXXXXX" id="inp-ref">
+            <div class="ref-badge">SKIP +2</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Save launch date to calendar</label>
+          <div class="cal-row">
+            <button class="cal-btn selected" id="gcal-btn" onclick="toggleCal('gcal')">
+              <span class="cal-icon gcal-icon">G</span> Google
+            </button>
+            <button class="cal-btn" id="apple-btn" onclick="toggleCal('apple')">
+              <span class="cal-icon apple-icon"></span> Apple
+            </button>
+            <button class="cal-btn" style="flex:0.6" onclick="toggleCal('none')">Skip</button>
+          </div>
+        </div>
+        <button class="submit-btn" onclick="goConfirm()">Secure my place →</button>
+        <p class="privacy-note">No spam. One email on signup, one when you're invited.<br>Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION VIEW -->
+  <div id="view-confirm" class="view">
+    <div class="confirm-view">
+      <div class="confirm-badge">You're in the queue</div>
+      <h2 class="confirm-title">Position <em>#4,218</em> secured.</h2>
+      <p class="confirm-sub">A confirmation has been sent to <strong style="color:var(--text)">ada@research.io</strong>. Share your referral link below — each confirmed referral moves you up 15 spots.</p>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-label">Queue position</div>
+          <div class="info-card-val gold">#4,218</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Est. invite</div>
+          <div class="info-card-val accent">~6 wks</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Referrals needed</div>
+          <div class="info-card-val success">0 / 3</div>
+        </div>
+      </div>
+
+      <div class="refer-block">
+        <div class="refer-block-title">Your referral link</div>
+        <div class="refer-block-sub">Share this. Each referral = 15 position jumps.</div>
+        <div class="refer-link-row">
+          <div class="refer-link">obsidian.app/r/OBS-ADA218</div>
+          <button class="copy-btn" onclick="this.textContent='Copied!'">Copy link</button>
+        </div>
+      </div>
+
+      <div class="cal-add-row">
+        <button class="cal-add-btn gcal-full">
+          <span style="font-size:14px">G</span> Add to Google Calendar
+        </button>
+        <button class="cal-add-btn apple-full">
+          <span style="font-size:14px"></span> Add to Apple Calendar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL PREVIEW -->
+  <div id="view-email" class="view">
+    <div class="email-view">
+      <div class="email-title-row">
+        <div class="email-title">Confirmation email preview</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="ai-badge"><span class="ai-dot"></span>AI-generated copy</div>
+          <button class="regen-btn" onclick="regenEmail()">↻ Regenerate</button>
+        </div>
+      </div>
+
+      <div id="email-loading" style="display:none;text-align:center;padding:40px;color:var(--muted);font-size:13px;font-family:'DM Mono',monospace;">
+        Generating personalized email...
+      </div>
+
+      <div class="email-shell" id="email-shell">
+        <div class="email-header">
+          <div class="email-logo">OBS<span style="color:var(--accent)">I</span>DIAN</div>
+          <h2 class="email-h">You're on the<br><em>inside.</em></h2>
+          <div class="email-sub-line">Your access request has been received.</div>
+        </div>
+        <div class="email-body">
+          <p id="email-para1">Welcome to the OBSIDIAN waitlist. You're position <strong>#4,218</strong> in the queue — not bad. The next access wave opens in approximately six weeks, and your spot is locked.</p>
+          <p id="email-para2">OBSIDIAN is built for researchers who find every other tool... insufficient. Deep document synthesis, private knowledge graphs, and a workspace that gets out of your way.</p>
+          <div class="email-highlight">
+            <p id="email-para3">Your referral code: <strong style="color:var(--accent)">OBS-ADA218</strong><br>Each referral moves you up 15 positions. Three referrals and you're in the next wave.</p>
+          </div>
+          <a class="email-cta" href="#">View your position →</a>
+          <p id="email-para4" style="font-size:13px">Questions? Reply to this email — a human reads every message. No support bots here.</p>
+        </div>
+        <div class="email-footer">
+          You're receiving this because you joined the OBSIDIAN waitlist.<br>
+          Obsidian Research Inc. · 340 Pine St, San Francisco, CA &nbsp;·&nbsp; <span style="color:var(--accent2)">Unsubscribe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN VIEW -->
+  <div id="view-admin" class="view">
+    <div class="admin-view">
+      <div class="admin-header">
+        <div class="admin-h">Waitlist dashboard</div>
+        <button class="invite-btn" style="border-color:var(--accent2);color:var(--accent)">+ Send invites</button>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Total signups</div>
+          <div class="metric-val" style="color:var(--text)">15,847</div>
+          <div class="metric-delta">+284 today</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Invites sent</div>
+          <div class="metric-val" style="color:var(--gold)">3538</div>
+          <div class="metric-delta">+20 this week</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Referral rate</div>
+          <div class="metric-val" style="color:var(--accent)">38%</div>
+          <div class="metric-delta">+4% vs last wk</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Activated</div>
+          <div class="metric-val" style="color:var(--success)">217</div>
+          <div class="metric-delta">64% conversion</div>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+        <button class="filter-btn" onclick="setFilter(this,'waiting')">Waiting</button>
+        <button class="filter-btn" onclick="setFilter(this,'invited')">Invited</button>
+        <button class="filter-btn" onclick="setFilter(this,'active')">Active</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Field</th>
+              <th>Referrals</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody">
+    <tr>
+      <td class="pos-num">1</td>
+      <td style="color:var(--text);font-weight:600">Marcus Webb</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">marcus@stanford.edu</td>
+      <td>Academic</td>
+      <td class="ref-count hot">12 ↑</td>
+      <td><span class="status-pill status-act">active</span></td>
+      <td></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">2</td>
+      <td style="color:var(--text);font-weight:600">Priya Mehta</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">priya@nytimes.com</td>
+      <td>Journalism</td>
+      <td class="ref-count hot">8 ↑</td>
+      <td><span class="status-pill status-act">active</span></td>
+      <td></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">3</td>
+      <td style="color:var(--text);font-weight:600">Tom Sinclair</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">tom@parthenon.io</td>
+      <td>Strategy</td>
+      <td class="ref-count hot">5 ↑</td>
+      <td><span class="status-pill status-inv">invited</span></td>
+      <td></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">4</td>
+      <td style="color:var(--text);font-weight:600">Ada Lovelace</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">ada@research.io</td>
+      <td>Academic</td>
+      <td class="ref-count ">0 </td>
+      <td><span class="status-pill status-wait">waiting</span></td>
+      <td><button class="invite-btn" onclick="sendInvite(this,'Ada Lovelace')">Invite</button></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">5</td>
+      <td style="color:var(--text);font-weight:600">Nour El-Said</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">nour@aljazeera.net</td>
+      <td>Journalism</td>
+      <td class="ref-count ">3 </td>
+      <td><span class="status-pill status-inv">invited</span></td>
+      <td></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">6</td>
+      <td style="color:var(--text);font-weight:600">Ji-woo Park</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">jiwoo@kaist.ac.kr</td>
+      <td>Academic</td>
+      <td class="ref-count ">1 </td>
+      <td><span class="status-pill status-wait">waiting</span></td>
+      <td><button class="invite-btn" onclick="sendInvite(this,'Ji-woo Park')">Invite</button></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">7</td>
+      <td style="color:var(--text);font-weight:600">Elena Kovacs</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">e.kovacs@proton.me</td>
+      <td>Independent</td>
+      <td class="ref-count hot">7 ↑</td>
+      <td><span class="status-pill status-wait">waiting</span></td>
+      <td><button class="invite-btn" onclick="sendInvite(this,'Elena Kovacs')">Invite</button></td>
+    </tr>
+  
+    <tr>
+      <td class="pos-num">8</td>
+      <td style="color:var(--text);font-weight:600">Dev Sharma</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">dev@mckinsey.com</td>
+      <td>Strategy</td>
+      <td class="ref-count ">0 </td>
+      <td><span class="status-pill status-wait">waiting</span></td>
+      <td><button class="invite-btn" onclick="sendInvite(this,'Dev Sharma')">Invite</button></td>
+    </tr>
+  </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const USERS = [
+  { pos: 1, name: 'Marcus Webb', email: 'marcus@stanford.edu', field: 'Academic', refs: 12, status: 'active' },
+  { pos: 2, name: 'Priya Mehta', email: 'priya@nytimes.com', field: 'Journalism', refs: 8, status: 'active' },
+  { pos: 3, name: 'Tom Sinclair', email: 'tom@parthenon.io', field: 'Strategy', refs: 5, status: 'invited' },
+  { pos: 4, name: 'Ada Lovelace', email: 'ada@research.io', field: 'Academic', refs: 0, status: 'waiting' },
+  { pos: 5, name: 'Nour El-Said', email: 'nour@aljazeera.net', field: 'Journalism', refs: 3, status: 'invited' },
+  { pos: 6, name: 'Ji-woo Park', email: 'jiwoo@kaist.ac.kr', field: 'Academic', refs: 1, status: 'waiting' },
+  { pos: 7, name: 'Elena Kovacs', email: 'e.kovacs@proton.me', field: 'Independent', refs: 7, status: 'waiting' },
+  { pos: 8, name: 'Dev Sharma', email: 'dev@mckinsey.com', field: 'Strategy', refs: 0, status: 'waiting' },
+];
+
+let filter = 'all';
+
+function renderTable() {
+  const data = filter === 'all' ? USERS : USERS.filter(u => u.status === filter);
+  const tbody = document.getElementById('admin-tbody');
+  tbody.innerHTML = data.map(u => `
+    <tr>
+      <td class="pos-num">${u.pos}</td>
+      <td style="color:var(--text);font-weight:600">${u.name}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">${u.email}</td>
+      <td>${u.field}</td>
+      <td class="ref-count ${u.refs >= 5 ? 'hot' : ''}">${u.refs} ${u.refs >= 5 ? '↑' : ''}</td>
+      <td><span class="status-pill ${u.status === 'waiting' ? 'status-wait' : u.status === 'invited' ? 'status-inv' : 'status-act'}">${u.status}</span></td>
+      <td>${u.status === 'waiting' ? `<button class="invite-btn" onclick="sendInvite(this,'${u.name}')">Invite</button>` : ''}</td>
+    </tr>
+  `).join('');
+}
+
+function setFilter(el, f) {
+  filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+function sendInvite(btn, name) {
+  btn.textContent = 'Sent!';
+  btn.style.color = 'var(--success)';
+  btn.style.borderColor = 'var(--success)';
+  btn.disabled = true;
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  event.target.classList.add('active');
+  if (tab === 'admin') renderTable();
+}
+
+function toggleCal(type) {
+  document.getElementById('gcal-btn').classList.toggle('selected', type === 'gcal');
+  document.getElementById('apple-btn').classList.toggle('selected', type === 'apple');
+}
+
+function goConfirm() {
+  const name = document.getElementById('inp-name').value || 'Ada';
+  const email = document.getElementById('inp-email').value || 'ada@research.io';
+  switchTab('confirm');
+  document.querySelectorAll('.nav-tab')[1].classList.add('active');
+  document.querySelectorAll('.nav-tab')[0].classList.remove('active');
+}
+
+async function regenEmail() {
+  const shell = document.getElementById('email-shell');
+  const loading = document.getElementById('email-loading');
+  shell.style.opacity = '0.3';
+  loading.style.display = 'block';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `Write a confirmation email body for OBSIDIAN, an invite-only AI research platform. 
+The user is Ada, position #4,218, referral code OBS-ADA218.
+Return ONLY a JSON object with these keys: p1, p2, p3, p4
+Each is a short paragraph (2-3 sentences). p3 is inside a highlighted block about the referral code.
+Tone: editorial, intelligent, slightly mysterious. No fluff. No exclamation marks.
+Return only raw JSON, no markdown.`
+        }]
+      })
+    });
+    const data = await response.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    document.getElementById('email-para1').innerHTML = parsed.p1.replace('Ada', '<strong>Ada</strong>').replace('#4,218', '<strong>#4,218</strong>');
+    document.getElementById('email-para2').innerHTML = parsed.p2;
+    document.getElementById('email-para3').innerHTML = parsed.p3 + '<br>Your referral code: <strong style="color:var(--accent)">OBS-ADA218</strong>';
+    document.getElementById('email-para4').innerHTML = parsed.p4;
+  } catch(e) {
+    document.getElementById('email-para1').innerHTML = 'Could not regenerate — API unavailable. The default copy is shown above.';
+  }
+
+  loading.style.display = 'none';
+  shell.style.opacity = '1';
+}
+
+renderTable();
+</script>
+</body></html>
