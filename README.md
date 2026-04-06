@@ -26,6 +26,6 @@ __
 
 [7. IP offerings](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/07.%20IP%20Launches/Moonshade%3A%20IPs%20%26%20Launches)
 
-[8. Moonshade Digital](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/08.%20Moonshade%20Digital/Moonshade%20Digi)
+[8. Moonshade Digital]([https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/08.%20Moonshade%20Digital/Moonshade%20Digi](https://github.com/todoketori/Moonshade-Digi-Hub/tree/main/08.%20Moonshade%20Digital))
 
 ____
